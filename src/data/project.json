@@ -1,0 +1,21 @@
+{
+  "status": "En attente de la réponse de la banque.",
+  "startDate": "2021-01-01T01:00:00.000Z",
+  "events": [
+    {
+      "startDate": "2021-01-01T01:00:00.000Z",
+      "assetSrc": "https://uc61625f7cb5a3e2ae2ce1ae9fd4.previews.dropboxusercontent.com/p/thumb/ABCHaEos7gLfE9jLWV2Dz64x1UtC19PyUMGSC_Vc6pkRmfgxputQpfwuAbYAfXbLTjmGPUKXA83s0Yec0DQDhlMZgU3157q6TWFn9qf7TLSrPtzHeMALU44u6y3hBjAtCe0PChpIeQ9r6gFQQcsnjitJeQaFgp7PTOUXFPrR4rYZQUcc8s1gxUQt0PPlbxOq0vn5ZkXF6S0ZkdbtVHqma-lHLVuKR-jjGmsDusxgJWC4Y8HfMFyBAzckOMdlyQZ1QAqwli7LEXX4KJV8NCcWNr0FKhlaCf3AUKGWZlGHa8ko2uHnqqBEJq6gIqKK7yzolYKK095BnuTIZ6Cc-2Pxs8MCCQmoIWDsBTS7HysOwCX6jaLhxdAi9eQ7Rc-nYMDy2XoIC2JKHZBMmuejwy6y93jw/p.jpeg?fv_content=true&size_mode=5",
+      "name": "PC"
+    }
+  ],
+  "lifeCycles": [
+    {
+      "startDate": "2020-11-01T01:00:00.000Z",
+      "name": "AVANT-PROJET"
+    },
+    {
+      "startDate": "2021-01-01T01:00:00.000Z",
+      "name": "PROJECT"
+    }
+  ]
+}
