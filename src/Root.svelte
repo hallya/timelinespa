@@ -1,16 +1,24 @@
 <script lang="ts">
   import Header from './components/Header.svelte';
   import Timeline from './components/Timeline.svelte';
-  import project from './data/project.json';
+  let project;
+
+  fetch('assets/project.json')
+    .then(res => res.json())
+    .then(data => {
+      project = data;
+    });
 </script>
 
 <main>
-  <Header projectStatus={project.status} />
-  <Timeline
-    startDate={project.startDate}
-    events={project.events}
-    lifeCycles={project.lifeCycles}
-  />
+  {#if project}
+    <Header projectStatus={project.status} />
+    <Timeline
+      startDate={project.startDate}
+      events={project.events}
+      lifeCycles={project.lifeCycles}
+    />
+  {/if}
 </main>
 
 <style>
