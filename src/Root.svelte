@@ -1,6 +1,7 @@
 <script lang="ts">
   import Header from './components/Header.svelte';
   import Timeline from './components/Timeline.svelte';
+
   let project;
 
   fetch('assets/project.json')
