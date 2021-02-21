@@ -165,7 +165,7 @@
     grid-auto-flow: column;
     height: 100vh;
     overflow-x: scroll;
-    overflow-y: visible;
+    overflow-y: hidden;
     position: fixed;
     scroll-behavior: smooth;
     width: 100vw;
