@@ -236,10 +236,10 @@
 
   .today {
     background-color: rgb(131, 144, 151);
-    position: relative;
+    position: absolute;
     left: -1px;
-    bottom: calc(100vh - 188px);
-    height: 100vh;
+    bottom: -175px;
+    height: 101vh;
     width: 2px;
   }
 
@@ -325,11 +325,6 @@
   @media screen and (min-width: 728px) {
     .monthContainer {
       width: 20vw;
-    }
-  }
-  @media screen and (min-width: 1400px) {
-    .horizontalLine {
-      bottom: 195px;
     }
   }
 </style>
