@@ -2,23 +2,43 @@
 <html lang="en">
 
 <head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
-
+	<meta charset="utf-8">
+	<meta name="description" content="Honei is an app to keep track of your cabin building progress">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="theme-color" content="#f4f4f4">
 	<title>honei</title>
 
-	<link rel='icon' type='image/svg' href='/favicon.svg'>
-	<link rel='stylesheet' href='/global.css'>
-	<link rel='stylesheet' href='/build/bundle.css'>
+	<link rel="apple-touch-icon" href="/assets/icons/logo_h_black_48px.png" sizes="48x48">
+	<link rel="apple-touch-icon" href="/assets/icons/logo_h_black_72px.png" sizes="72x72">
+	<link rel="apple-touch-icon" href="/assets/icons/logo_h_black_96px.png" sizes="96x96">
+	<link rel="apple-touch-icon" href="/assets/icons/logo_h_black_144px.png" sizes="144x144">
+	<link rel="apple-touch-icon" href="/assets/icons/logo_h_black_168px.png" sizes="168x168">
+	<link rel="apple-touch-icon" href="/assets/icons/logo_h_black_192px.png" sizes="192x192">
+	<link rel="apple-touch-icon" href="/assets/icons/logo_h_black_512px.png" sizes="512x512">
+	
+	<link rel="icon" type="image/svg" href="/favicon.svg">
+	<link rel="preload" href="/global.css" as="style">
+	<link rel="stylesheet" href="/global.css">
+	<link rel="preload" href="/build/bundle.css" as="style">
+	<link rel="stylesheet" href="/build/bundle.css">
+	<link rel="manifest" href="/manifest.json">
 
-	<script defer src='/build/bundle.js'></script>
+	<noscript>This website requires javascript in order to work</noscript>
+	<script defer src="/build/bundle.js"></script>
+	<script>
+		if ("serviceWorker" in navigator) {
+			window.addEventListener("load", () => {
+				navigator.serviceWorker.register("/serviceWorker.js");
+			});
+		}
+	</script>
 	<style type="text/css">
 		@font-face {
 			font-family: NeufileGrotesk;
 			src:
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Light.woff2') format('woff2'),
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Light.woff') format('woff'),
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Light.ttf') format('ttf');
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Light.woff2") format("woff2"),
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Light.woff") format("woff"),
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Light.ttf") format("ttf");
 			font-weight: 300;
 			font-style: normal;
 			font-stretch: normal;
@@ -28,30 +48,30 @@
 		@font-face {
 			font-family: NeufileGrotesk;
 			src:
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Regular.woff2') format('woff2'),
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Regular.woff') format('woff'),
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Regular.ttf') format('ttf');
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Regular.woff2") format("woff2"),
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Regular.woff") format("woff"),
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Regular.ttf") format("ttf");
 			font-weight: 500;
 			font-style: normal;
 			font-stretch: normal;
 			font-display: fallback;
 		}
 
-		@font-face {
+		/* @font-face {
 			font-family: NeufileGrotesk;
 			src:
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Medium.woff2') format('woff2'),
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Medium.woff') format('woff'),
-				url('/assets/fonts/NeufileGrotesk/NeufileGrotesk-Medium.ttf') format('ttf');
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Medium.woff2") format("woff2"),
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Medium.woff") format("woff"),
+				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Medium.ttf") format("ttf");
 			font-weight: 700;
 			font-style: normal;
 			font-stretch: normal;
 			font-display: fallback;
-		}
+		} */
 
-		.fontMedium {
+		/* .fontMedium {
 			font-weight: 700;
-		}
+		} */
 
 		.fontRegular {
 			font-weight: 500;

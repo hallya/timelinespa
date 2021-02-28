@@ -8,79 +8,85 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import css from 'rollup-plugin-css-only';
+import replace from '@rollup/plugin-replace';
+import { injectManifest } from 'rollup-plugin-workbox';
 
 const production = !process.env.ROLLUP_WATCH;
 
+const SRC_DIR = 'src';
+const BUILD_DIR = 'public';
+
 function serve() {
-	let server;
+  let server;
 
-	function toExit() {
-		if (server) server.kill(0);
-	}
+  function toExit() {
+    if (server) server.kill(0);
+  }
 
-	return {
-		writeBundle() {
-			if (server) return;
-			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-				stdio: ['ignore', 'inherit', 'inherit'],
-				shell: true
-			});
+  return {
+    writeBundle() {
+      if (server) return;
+      server = require('child_process').spawn(
+        'npm',
+        ['run', 'start', '--', '--dev'],
+        {
+          stdio: ['ignore', 'inherit', 'inherit'],
+          shell: true,
+        }
+      );
 
-			process.on('SIGTERM', toExit);
-			process.on('exit', toExit);
-		}
-	};
+      process.on('SIGTERM', toExit);
+      process.on('exit', toExit);
+    },
+  };
 }
 
 export default {
-	input: 'src/main.ts',
-	output: {
-		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: 'public/build/bundle.js'
-	},
-	plugins: [
-		svelte({
-			preprocess: autoPreprocess(),
-			preprocess: sveltePreprocess(),
-			compilerOptions: {
-				// enable run-time checks when not in production
-				dev: !production
-			}
-		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
-		typescript({ sourceMap: !production }),
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
-			browser: true,
-			dedupe: ['svelte']
-		}),
-		json(),
-		commonjs(),
-		typescript({
-			sourceMap: !production,
-			inlineSources: !production
-		}),
-		// In dev mode, call `npm run start` once
-		// the bundle has been generated
-		!production && serve(),
+  input: `${SRC_DIR}/main.ts`,
+  plugins: [
+    svelte({
+      preprocess: autoPreprocess(),
+      preprocess: sveltePreprocess(),
+      compilerOptions: {
+        dev: !production,
+      },
+    }),
+    css({ output: 'bundle.css' }),
+    commonjs(),
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(
+        process.env.NODE_ENV || 'production'
+      ),
+      preventAssignment: true,
+    }),
+    injectManifest({
+      globDirectory: BUILD_DIR,
+      globPatterns: [
+        'manifest.json',
+        'assets/icons/*.png',
+        'favicon.svg',
+        'global.css',
+        'index.html',
+      ],
+      mode: 'production',
+      swDest: `${BUILD_DIR}/serviceWorker.js`,
+      swSrc: `${SRC_DIR}/serviceWorker.js`,
+    }),
+    resolve({
+      browser: true,
+      dedupe: ['svelte'],
+    }),
+    json(),
+    typescript({ sourceMap: !production, inlineSourceMap: false }),
 
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public'),
+    !production && serve(),
 
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser()
-	],
-	watch: {
-		clearScreen: false
-	}
+    !production && livereload('public'),
+    production && terser(),
+  ],
+  output: {
+    sourcemap: !production,
+    format: 'iife',
+    file: `${BUILD_DIR}/build/bundle.js`,
+  },
 };

@@ -206,7 +206,7 @@
   }
 
   .monthContainer {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     height: 20px;
     position: relative;
     width: 70vw;
