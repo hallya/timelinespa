@@ -6,10 +6,12 @@ export function extractParts(
   dateTimeParts: Intl.DateTimeFormatPart[],
   requiredParts: Intl.DateTimeFormatPart['type'][]
 ): Intl.DateTimeFormatPart['value'][] {
+  const defaultParts: Intl.DateTimeFormatPart['value'][] = [];
   return requiredParts.reduce((parts, partType) => {
-    return [
+    const partValue = dateTimeParts.find((part) => part.type === partType)?.value;
+    return partValue ? [
       ...parts,
-      dateTimeParts.find((part) => part.type === partType)?.value,
-    ];
-  }, [] as Intl.DateTimeFormatPart['value'][]);
+      partValue,
+    ] : parts;
+  }, defaultParts);
 }

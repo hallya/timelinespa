@@ -1,8 +1,14 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
+    "allowJs": false,
+    "lib": ["es2020", "webworker", "dom"],
+    "module": "ESNext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
+    "strict": true,
+    "target": "esnext"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "public/serviceWorker.ts"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }
