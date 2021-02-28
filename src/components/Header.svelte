@@ -10,15 +10,7 @@
     </p>
   </section>
   <picture>
-    <source
-      media="(min-width: 1200px)"
-      srcset="assets/icons/logo_h_black_50px.png"
-    />
-    <source
-      media="(min-width: 728px)"
-      srcset="assets/icons/logo_h_black_30px.png"
-    />
-    <img src="assets/icons/logo_h_black_20px.png" alt="brand logo" />
+    <img src="assets/icons/logo_h_black.svg" alt="brand logo" height="30px" width="30px" />
   </picture>
 </header>
 
@@ -55,13 +47,8 @@
   img {
     position: relative;
     top: 5px;
-    width: 20px;
-  }
-
-  @media screen and (min-width: 728px) {
-    img {
-      width: 30px;
-    }
+    height: 30px;
+    width: 30px;
   }
 
   @media screen and (min-width: 1200px) {
