@@ -4,9 +4,11 @@ import {
   StaleWhileRevalidate,
   CacheFirst,
 } from 'workbox-strategies';
-import { precacheAndRoute } from 'workbox-precaching';
+import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { ExpirationPlugin } from 'workbox-expiration';
+
+cleanupOutdatedCaches();
 
 precacheAndRoute(self.__WB_MANIFEST);
 
