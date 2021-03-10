@@ -8,9 +8,8 @@ import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { ExpirationPlugin } from 'workbox-expiration';
 
-cleanupOutdatedCaches();
-
 precacheAndRoute(self.__WB_MANIFEST);
+cleanupOutdatedCaches();
 
 // to be used later maybe
 // registerRoute(
@@ -30,7 +29,6 @@ registerRoute(
     request.destination === 'style' ||
     request.destination === 'script' ||
     request.destination === 'font' ||
-    // request.url === '/assets/project.json' ||
     request.destination === 'worker',
   new StaleWhileRevalidate({
     cacheName: 'assets',
@@ -43,8 +41,14 @@ registerRoute(
 );
 
 registerRoute(
-  ({ request }) =>
-    request.destination === 'image',
+  ({ url }) => url.pathname.startsWith('/assets/project.json'),
+  new NetworkFirst({
+    cacheName: 'project',
+  })
+);
+
+registerRoute(
+  ({ request }) => request.destination === 'image',
   new CacheFirst({
     cacheName: 'images',
     plugins: [
