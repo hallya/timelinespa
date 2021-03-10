@@ -34,6 +34,136 @@
 			});
 		}
 	</script>
+	<style>
+		html,
+		body,
+		div,
+		span,
+		applet,
+		object,
+		iframe,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p,
+		blockquote,
+		pre,
+		a,
+		abbr,
+		acronym,
+		address,
+		big,
+		cite,
+		code,
+		del,
+		dfn,
+		em,
+		img,
+		ins,
+		kbd,
+		q,
+		s,
+		samp,
+		small,
+		strike,
+		strong,
+		sub,
+		sup,
+		tt,
+		var,
+		b,
+		u,
+		i,
+		center,
+		dl,
+		dt,
+		dd,
+		ol,
+		ul,
+		li,
+		fieldset,
+		form,
+		label,
+		legend,
+		table,
+		caption,
+		tbody,
+		tfoot,
+		thead,
+		tr,
+		th,
+		td,
+		article,
+		aside,
+		canvas,
+		details,
+		embed,
+		figure,
+		figcaption,
+		footer,
+		header,
+		hgroup,
+		menu,
+		nav,
+		output,
+		ruby,
+		section,
+		summary,
+		time,
+		mark,
+		audio,
+		video {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+
+		article,
+		aside,
+		details,
+		figcaption,
+		figure,
+		footer,
+		header,
+		hgroup,
+		menu,
+		nav,
+		section {
+			display: block;
+		}
+
+		body {
+			line-height: 1;
+		}
+
+		ol,
+		ul {
+			list-style: none;
+		}
+
+		blockquote,
+		q {
+			quotes: none;
+		}
+
+		blockquote:before,
+		blockquote:after,
+		q:before,
+		q:after {
+			content: none;
+		}
+
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+	</style>
 	<style type="text/css">
 		@font-face {
 			font-family: NeufileGrotesk;
@@ -59,7 +189,7 @@
 			font-display: fallback;
 		}
 
-		/* @font-face {
+		@font-face {
 			font-family: NeufileGrotesk;
 			src:
 				url("/assets/fonts/NeufileGrotesk/NeufileGrotesk-Medium.woff2") format("woff2"),
@@ -69,22 +199,155 @@
 			font-style: normal;
 			font-stretch: normal;
 			font-display: fallback;
-		} */
-
-		/* .fontMedium {
-			font-weight: 700;
-		} */
-
-		.fontRegular {
-			font-weight: 500;
 		}
 
-		.fontLight {
-			font-weight: 300;
+		.bodyXSLight {
+			font: 300 14px/20px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyXSRegular {
+			font: 500 14px/20px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyXSMedium {
+			font: 700 14px/20px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodySLight {
+			font: 300 14px/20px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodySRegular {
+			font: 500 14px/20px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodySMedium {
+			font: 700 14px/20px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyMLight {
+			font: 300 16px/22px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyMRegular {
+			font: 500 16px/22px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyMMedium {
+			font: 700 16px/22px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyLLight {
+			font: 300 18px/24px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyLRegular {
+			font: 500 18px/24px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyLMedium {
+			font: 700 18px/24px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyXLLight {
+			font: 300 22px/30px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyXLRegular {
+			font: 500 22px/30px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.bodyXLMedium {
+			font: 700 22px/30px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleSLight {
+			font: 300 32px/38px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleSRegular {
+			font: 500 32px/38px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleSMedium {
+			font: 700 32px/38px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleMLight {
+			font: 300 40px/46px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleMRegular {
+			font: 500 40px/46px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleMMedium {
+			font: 700 40px/46px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleLLight {
+			font: 300 48px/54px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleLRegular {
+			font: 500 48px/54px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.subtitleLMedium {
+			font: 700 48px/54px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleSLight {
+			font: 300 56px/62px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleSRegular {
+			font: 500 56px/62px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleSMedium {
+			font: 700 56px/62px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleMLight {
+			font: 300 64px/70px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleMRegular {
+			font: 500 64px/70px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleMMedium {
+			font: 700 64px/70px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleLLight {
+			font: 300 72px/78px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleLRegular {
+			font: 500 72px/78px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleLMedium {
+			font: 700 72px/78px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleXLLight {
+			font: 300 80px/86px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleXLRegular {
+			font: 500 80px/86px NeufileGrotesk, arial, sans-serif;
+		}
+
+		.titleXLMedium {
+			font: 700 80px/86px NeufileGrotesk, arial, sans-serif;
 		}
 	</style>
 </head>
 
 <body>
 </body>
+
 </html>

@@ -105,7 +105,7 @@
                         year,
                       })
                     )}
-                      <p class="lifeCycleMarker projectLabel fontLight">
+                      <p class="lifeCycleMarker projectLabel bodyLLight">
                         {markupsFromLifeCyles.find((lf) =>
                           isMatchingPeriod(lf, {
                             weekIndex,
@@ -130,7 +130,7 @@
                             year,
                           })
                         ) as markupEvent}
-                          <li class={`event ${randomBackground()}`}>
+                          <li class={`event bodyLLight ${randomBackground()}`}>
                             <a class="link" href={markupEvent.assetSrc}>
                               {markupEvent.name}
                             </a>
@@ -141,11 +141,11 @@
                   </div>
                 {/each}
               </div>
-              <p class="month fontLight">{month}</p>
+              <p class="month bodyXSLight">{month}</p>
             </li>
           {/each}
         </ul>
-        <p class="year fontLight" id={`year-${year}`}>
+        <p class="year subtitleSLight" id={`year-${year}`}>
           {year}
         </p>
       </section>
@@ -187,7 +187,6 @@
   .year {
     align-self: flex-end;
     color: rgba(0, 0, 0, 0.1);
-    font-size: 2rem;
     left: 20px;
     letter-spacing: 4px;
     margin: 0 auto 20px 20px;
@@ -206,7 +205,6 @@
   }
 
   .monthContainer {
-    font-size: 0.8rem;
     height: 20px;
     position: relative;
     width: 70vw;
@@ -266,7 +264,6 @@
     border-radius: 50%;
     color: white;
     display: flex;
-    font-size: 1.1rem;
     height: 40px;
     justify-content: center;
     left: -20px;
@@ -292,7 +289,6 @@
   }
 
   .projectLabel {
-    font-size: 1.1rem;
     letter-spacing: 2px;
     width: max-content;
   }

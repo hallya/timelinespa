@@ -4,13 +4,18 @@
 
 <header>
   <section aria-labelledby="statusLabel" aria-describedby="statusDescription">
-    <p id="statusLabel" class="statusTitle fontRegular">Statut</p>
-    <p id="statusDescription" class="statusDescription fontLight">
+    <p id="statusLabel" class="statusTitle bodyXLRegular">Statut</p>
+    <p id="statusDescription" class="statusDescription bodySLight">
       {projectStatus}
     </p>
   </section>
   <picture>
-    <img src="assets/icons/logo_h_black.svg" alt="brand logo" height="30px" width="30px" />
+    <img
+      src="assets/icons/logo_h_black.svg"
+      alt="brand logo"
+      height="30px"
+      width="30px"
+    />
   </picture>
 </header>
 
@@ -35,12 +40,10 @@
   }
 
   .statusTitle {
-    font-size: 1.3rem;
     margin-bottom: 8px;
   }
 
   .statusDescription {
-    font-size: 0.9rem;
     line-height: 1.5rem;
   }
 
