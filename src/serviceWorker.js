@@ -36,6 +36,10 @@ registerRoute(
       new CacheableResponsePlugin({
         statuses: [200],
       }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 60 * 60 * 24 * 1, // 1 Days
+      }),
     ],
   })
 );
@@ -57,8 +61,12 @@ registerRoute(
       }),
       new ExpirationPlugin({
         maxEntries: 50,
-        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
+        maxAgeSeconds: 60 * 60 * 24 * 2, // 2 Days
       }),
     ],
   })
 );
+
+addEventListener('message', (messageEvent) => {
+  if (messageEvent.data === 'skipWaiting') return skipWaiting();
+});
