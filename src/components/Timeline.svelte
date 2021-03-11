@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import type { ProjectEvent, LifeCycleEvent, Markup } from '../types';
   import { maxMonthIndex, months } from '../utils/constants';
-  import { randomBackground } from '../utils/style';
   import {
     generateTimelineMarkups,
     generateYearsAndMonthList as generateProjectEventsTimeline,
@@ -130,7 +129,10 @@
                             year,
                           })
                         ) as markupEvent}
-                          <li class={`event bodyLLight ${randomBackground()}`}>
+                          <li
+                            class="event bodyLLight"
+                            style={`background-color:${markupEvent.color}`}
+                          >
                             <a class="link" href={markupEvent.assetSrc}>
                               {markupEvent.name}
                             </a>
@@ -291,31 +293,6 @@
   .projectLabel {
     letter-spacing: 2px;
     width: max-content;
-  }
-
-  .bg-1 {
-    background-color: rgb(94, 94, 94);
-  }
-  .bg-1:active {
-    background-color: rgb(78, 78, 78);
-  }
-  .bg-2 {
-    background-color: rgb(75, 54, 30);
-  }
-  .bg-2:active {
-    background-color: rgb(47, 34, 19);
-  }
-  .bg-3 {
-    background-color: rgb(47, 77, 47);
-  }
-  .bg-3:active {
-    background-color: rgb(38, 63, 38);
-  }
-  .bg-4 {
-    background-color: rgb(46, 54, 77);
-  }
-  .bg-4:active {
-    background-color: rgb(35, 41, 58);
   }
 
   @media screen and (min-width: 728px) {

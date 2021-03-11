@@ -9,7 +9,20 @@
     {
       "startDate": "2021-01-01T01:00:00.000Z",
       "assetSrc": "/assets/icons/logo_h_black_72px.png",
-      "name": "PC"
+      "name": "PC",
+      "color": "rgb(94, 94, 94)"
+    },
+    {
+      "startDate": "2021-04-17T01:00:00.000Z",
+      "assetSrc": "/assets/icons/logo_h_black_72px.png",
+      "name": "TP",
+      "color": "rgb(47, 77, 47)"
+    },
+    {
+      "startDate": "2021-02-17T01:00:00.000Z",
+      "assetSrc": "/assets/icons/logo_h_black_72px.png",
+      "name": "CA",
+      "color": "rgb(92, 27, 27)"
     }
   ],
   "lifeCycles": [

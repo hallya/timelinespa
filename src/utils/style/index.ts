@@ -1,1 +1,0 @@
-export { randomBackground } from './randomBackground';
