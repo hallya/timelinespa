@@ -82,7 +82,7 @@ export default {
     !production && serve(),
 
     !production && livereload('public'),
-    production && terser(),
+    production && terser({ compress: true }),
   ],
   output: {
     sourcemap: !production,
