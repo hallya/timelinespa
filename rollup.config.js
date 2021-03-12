@@ -64,6 +64,7 @@ export default {
       globPatterns: [
         'manifest.json',
         'assets/icons/*.png',
+        'assets/icons/*.svg',
         'favicon.svg',
         'global.css',
         'index.html',
