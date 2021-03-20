@@ -8,8 +8,8 @@
   let project: Project;
   let isAuthenticated: boolean;
 
-  const unsubscribeAuth = auth.subscribe((value) => {
-    isAuthenticated = value;
+  const unsubscribeAuth = auth.subscribe((auth) => {
+    isAuthenticated = auth.isAuthenticated;
   });
 
   fetch('assets/project.json')
@@ -28,7 +28,7 @@
       lifeCycles={project.lifeCycles}
     />
   {:else if project && !isAuthenticated}
-    <Authentication crendentials={project.crendentials} />
+    <Authentication />
   {/if}
 </main>
 

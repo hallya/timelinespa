@@ -1,8 +1,4 @@
 {
-  "crendentials": {
-    "email": "test@email.com",
-    "password": "azerty"
-  },
   "status": "En attente de la réponse de la banque.",
   "startDate": "2021-01-01T01:00:00.000Z",
   "events": [
@@ -14,7 +10,7 @@
     },
     {
       "startDate": "2021-04-17T01:00:00.000Z",
-      "assetSrc": "/assets/icons/logo_h_black_72px.png",
+      "assetSrc": "https://p9.storage.canalblog.com/90/03/695544/49105325.jpg",
       "name": "TP",
       "color": "rgb(47, 77, 47)"
     },

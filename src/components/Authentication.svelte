@@ -1,8 +1,60 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { auth } from '../store';
-  import type { Project } from '../types/project';
+  import type { Credentials } from '../types/credentials';
+  import { getCookie, setCookie } from '../utils/cookies';
 
-  export let crendentials: Project['crendentials'];
+  let credentials: Credentials;
+
+  const unsubscribeAuth = auth.subscribe((auth) => {
+    const { email, password } = auth;
+    credentials = {
+      email,
+      password,
+    };
+  });
+
+  function isAlreadyAuthenticated(): boolean {
+    const isLogged = getCookie('logged_in');
+    return isLogged === 'yes';
+  }
+
+  async function authFromNetwork() {
+    const res = await fetch('assets/auth.json');
+    const { email, password }: Credentials = await res.json();
+
+    if (email && password) {
+      auth.update((auth) => ({ ...auth, email, password }));
+      setCookie({ name: 'email', value: email });
+      setCookie({ name: 'password', value: password });
+    }
+  }
+
+  function authFromCookie() {
+    const email = getCookie('email');
+    const password = getCookie('password');
+
+    return { email, password };
+  }
+
+  function fetchAuth() {
+    const { email, password } = authFromCookie();
+
+    if (email && password) {
+      auth.update((auth) => ({ ...auth, email, password }));
+    } else {
+      authFromNetwork();
+    }
+  }
+
+  onMount(() => {
+    if (isAlreadyAuthenticated()) {
+      auth.update((auth) => ({ ...auth, isAuthenticated: true }));
+      setCookie({ name: 'logged_in', value: 'yes', 'max-age': 900 });
+    } else {
+      fetchAuth();
+    }
+  });
 
   function handleSubmit<T>(
     event: Event & {
@@ -16,15 +68,16 @@
     );
 
     if (
-      formData.get('email') === crendentials.email &&
-      formData.get('password') === crendentials.password
+      formData.get('email') === credentials.email &&
+      formData.get('password') === credentials.password
     ) {
       console.log('auth success');
-      auth.update(() => true);
+      setCookie({ name: 'logged_in', value: 'yes', 'max-age': 900 });
+      auth.update((auth) => ({ ...auth, isAuthenticated: true }));
     } else {
       console.log('auth failed');
-      console.log(formData.get('email'));
-      console.log(formData.get('password'));
+      console.log(`form email : ${formData.get('email')}`);
+      console.log(`form password : ${formData.get('password')}`);
     }
   }
 </script>
