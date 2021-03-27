@@ -1,4 +1,4 @@
-import { skipWaiting } from 'workbox-core';
+import { skipWaiting, clientsClaim } from 'workbox-core';
 import { registerRoute } from 'workbox-routing';
 import {
   NetworkFirst,
@@ -8,15 +8,15 @@ import {
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
+skipWaiting();
+clientsClaim();
+
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
 
 registerRoute(
   ({ request }) =>
-    request.destination === 'style' ||
-    request.destination === 'script' ||
-    request.destination === 'font' ||
-    request.destination === 'worker',
+    request.destination === 'style' || request.destination === 'script',
   new StaleWhileRevalidate({
     cacheName: 'stale-while-revalidate',
     plugins: [
@@ -29,6 +29,7 @@ registerRoute(
 
 registerRoute(
   ({ url }) =>
+    request.destination === 'worker' ||
     url.pathname.startsWith('/assets/project.json') ||
     url.pathname.startsWith('/assets/auth.json'),
   new NetworkFirst({
@@ -42,7 +43,8 @@ registerRoute(
 );
 
 registerRoute(
-  ({ request }) => request.destination === 'image',
+  ({ request }) =>
+    request.destination === 'image' || request.destination === 'font',
   new CacheFirst({
     cacheName: 'cache-first',
     plugins: [
@@ -52,9 +54,3 @@ registerRoute(
     ],
   })
 );
-
-addEventListener('message', (messageEvent) => {
-  if (messageEvent.data === 'skipWaiting') {
-    skipWaiting();
-  }
-});

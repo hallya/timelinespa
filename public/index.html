@@ -23,47 +23,6 @@
 	<noscript>This website requires javascript in order to work</noscript>
 	<script defer src="/build/bundle.js"></script>
 	<script>
-		function listenForWaitingServiceWorker(registration, callback) {
-
-			function awaitStateChange() {
-				registration.installing.addEventListener('statechange', function () {
-					if (this.state === 'installed') {
-						callback(registration);
-					}
-				});
-			}
-
-			if (!registration) {
-				return;
-			}
-
-			if (registration.waiting) {
-				return callback(registration);
-			}
-
-			if (registration.installing) {
-				awaitStateChange();
-			}
-
-			registration.addEventListener('updatefound', awaitStateChange);
-		}
-
-		var refreshing;
-
-		navigator.serviceWorker.addEventListener('controllerchange',
-			function () {
-				if (refreshing) return;
-				refreshing = true;
-				window.location.reload();
-			}
-		);
-
-		function promptUserToRefresh(reg) {
-			if (window.confirm("Nouvelle version de l'application disponible.\nSouhaitez-vous l'installer ?")) {
-				reg.waiting.postMessage('skipWaiting');
-			}
-		}
-
 		if ("serviceWorker" in navigator) {
 			window.addEventListener("load", () => {
 				navigator.serviceWorker.register("/serviceWorker.js").then(function (registration) {
