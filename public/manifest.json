@@ -8,6 +8,12 @@
   "description": "An app to follow construction steps of your modern hut",
   "lang": "fr-FR",
   "orientation": "portrait-primary",
+  "permissions": [
+    "activeTab",
+    "cookies",
+    "storage",
+    "browsingData"
+  ],
   "icons": [
     {
       "src": "assets/icons/logo_h_black_48px.png",
