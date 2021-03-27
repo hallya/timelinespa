@@ -8,15 +8,12 @@ import {
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
-skipWaiting();
-clientsClaim();
-
-precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
+precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(
-  ({ request }) =>
-    request.destination === 'style' || request.destination === 'script',
+  ({ url }) =>
+    url.pathname.startsWith('/build') || url.pathname === '/assets/auth.json',
   new StaleWhileRevalidate({
     cacheName: 'stale-while-revalidate',
     plugins: [
@@ -28,10 +25,7 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) =>
-    request.destination === 'worker' ||
-    url.pathname.startsWith('/assets/project.json') ||
-    url.pathname.startsWith('/assets/auth.json'),
+  ({ url }) => url.pathname.startsWith('/assets/project.json'),
   new NetworkFirst({
     cacheName: 'network-first',
     plugins: [
@@ -54,3 +48,11 @@ registerRoute(
     ],
   })
 );
+
+addEventListener('message', (messageEvent) => {
+  if (messageEvent.data === 'skipWaiting') {
+    console.log('[service-worker] skip waiting');
+    skipWaiting();
+    clientsClaim();
+  }
+});
