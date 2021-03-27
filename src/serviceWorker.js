@@ -1,3 +1,4 @@
+import { skipWaiting } from 'workbox-core';
 import { registerRoute } from 'workbox-routing';
 import {
   NetworkFirst,
@@ -27,8 +28,9 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => url.pathname.startsWith('/assets/project.json'),
-  ({ url }) => url.pathname.startsWith('/assets/auth.json'),
+  ({ url }) =>
+    url.pathname.startsWith('/assets/project.json') ||
+    url.pathname.startsWith('/assets/auth.json'),
   new NetworkFirst({
     cacheName: 'network-first',
     plugins: [
@@ -52,5 +54,7 @@ registerRoute(
 );
 
 addEventListener('message', (messageEvent) => {
-  if (messageEvent.data === 'skipWaiting') return skipWaiting();
+  if (messageEvent.data === 'skipWaiting') {
+    skipWaiting();
+  }
 });
