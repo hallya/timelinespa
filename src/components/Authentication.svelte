@@ -7,9 +7,9 @@
   let credentials: Credentials;
 
   const unsubscribeAuth = auth.subscribe((auth) => {
-    const { email, password } = auth;
+    const { id, password } = auth;
     credentials = {
-      email,
+      id,
       password,
     };
   });
@@ -21,27 +21,27 @@
 
   async function authFromNetwork() {
     const res = await fetch('assets/auth.json');
-    const { email, password }: Credentials = await res.json();
+    const { id, password }: Credentials = await res.json();
 
-    if (email && password) {
-      auth.update((auth) => ({ ...auth, email, password }));
-      setCookie({ name: 'email', value: email });
+    if (id && password) {
+      auth.update((auth) => ({ ...auth, id, password }));
+      setCookie({ name: 'id', value: id });
       setCookie({ name: 'password', value: password });
     }
   }
 
   function authFromCookie() {
-    const email = getCookie('email');
+    const id = getCookie('id');
     const password = getCookie('password');
 
-    return { email, password };
+    return { id, password };
   }
 
   function fetchAuth() {
-    const { email, password } = authFromCookie();
+    const { id, password } = authFromCookie();
 
-    if (email && password) {
-      auth.update((auth) => ({ ...auth, email, password }));
+    if (id && password) {
+      auth.update((auth) => ({ ...auth, id, password }));
     } else {
       authFromNetwork();
     }
@@ -68,7 +68,7 @@
     );
 
     if (
-      formData.get('email') === credentials.email &&
+      formData.get('id') === credentials.id &&
       formData.get('password') === credentials.password
     ) {
       console.log('auth success');
@@ -76,7 +76,7 @@
       auth.update((auth) => ({ ...auth, isAuthenticated: true }));
     } else {
       console.log('auth failed');
-      console.log(`form email : ${formData.get('email')}`);
+      console.log(`form id : ${formData.get('id')}`);
       console.log(`form password : ${formData.get('password')}`);
     }
   }
@@ -85,8 +85,8 @@
 <form class="form" on:submit={handleSubmit} id="authForm">
   <div>
     <label class="label bodyMMedium">
-      Email
-      <input class="input bodyMLight" name="email" type="email" />
+      Identifiant
+      <input class="input bodyMLight" name="id" type="id" />
     </label>
     <label class="label bodyMMedium">
       Mot de passe

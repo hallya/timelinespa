@@ -3,6 +3,6 @@ import type { Auth } from './types';
 
 export const auth = writable<Auth>({
   isAuthenticated: false,
-  email: null,
+  id: null,
   password: null,
 });

@@ -1,5 +1,5 @@
 export interface Auth {
   isAuthenticated: boolean;
-  email: string | null;
+  id: string | null;
   password: string | null;
 }
