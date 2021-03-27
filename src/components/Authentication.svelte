@@ -5,6 +5,8 @@
   import { getCookie, setCookie } from '../utils/cookies';
 
   let credentials: Credentials;
+  let invalidId = false;
+  let invalidPassword = false;
 
   const unsubscribeAuth = auth.subscribe((auth) => {
     const { id, password } = auth;
@@ -76,8 +78,8 @@
       auth.update((auth) => ({ ...auth, isAuthenticated: true }));
     } else {
       console.log('auth failed');
-      console.log(`form id : ${formData.get('id')}`);
-      console.log(`form password : ${formData.get('password')}`);
+      invalidId = formData.get('id') !== credentials.id;
+      invalidPassword = formData.get('password') !== credentials.password;
     }
   }
 </script>
@@ -86,11 +88,19 @@
   <div>
     <label class="label bodyMMedium">
       Identifiant
-      <input class="input bodyMLight" name="id" type="id" />
+      <input
+        class={`input bodyMLight ${invalidId ? 'invalid' : ''}`}
+        name="id"
+        type="id"
+      />
     </label>
     <label class="label bodyMMedium">
       Mot de passe
-      <input class="input bodyMLight" name="password" type="password" />
+      <input
+        class={`input bodyMLight ${invalidPassword ? 'invalid' : ''}`}
+        name="password"
+        type="password"
+      />
     </label>
   </div>
   <button
@@ -126,6 +136,10 @@
 
   .input:focus {
     outline: none;
+  }
+
+  .invalid {
+    box-shadow: 0 0 2px 0px red;
   }
 
   .submitButton {
