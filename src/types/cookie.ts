@@ -9,14 +9,9 @@ interface LoggedCookie extends CookieOption {
   value: 'yes' | 'no';
 };
 
-interface CredentialIdCookie extends CookieOption {
-  name: 'id';
+interface ProjectURLCookie extends CookieOption {
+  name: 'projectUrl';
   value: string;
 };
 
-interface CredentialPasswordCookie extends CookieOption {
-  name: 'password';
-  value: string;
-};
-
-export type Cookie = LoggedCookie | CredentialIdCookie | CredentialPasswordCookie;
+export type Cookie = LoggedCookie | ProjectURLCookie;

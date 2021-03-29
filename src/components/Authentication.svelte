@@ -1,87 +1,71 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { auth } from '../store';
+  import { AxiosResponse, default as axios } from 'axios';
+  import { store } from '../store';
   import type { Credentials } from '../types/credentials';
   import { getCookie, setCookie } from '../utils/cookies';
 
-  let credentials: Credentials;
   let invalidId = false;
   let invalidPassword = false;
-
-  const unsubscribeAuth = auth.subscribe((auth) => {
-    const { id, password } = auth;
-    credentials = {
-      id,
-      password,
-    };
-  });
 
   function isAlreadyAuthenticated(): boolean {
     const isLogged = getCookie('logged_in');
     return isLogged === 'yes';
   }
 
-  async function authFromNetwork() {
-    const res = await fetch('assets/auth.json');
-    const { id, password }: Credentials = await res.json();
+  async function login(formData: Credentials) {
+    try {
+      const { data } = await axios.post<{ url: string }>(
+        'https://jawhoidas0.execute-api.us-east-1.amazonaws.com/latest/login',
+        formData,
+        {
+          headers: {
+            'content-type': 'application/json',
+          },
+        }
+      );
 
-    if (id && password) {
-      auth.update((auth) => ({ ...auth, id, password }));
-      setCookie({ name: 'id', value: id });
-      setCookie({ name: 'password', value: password });
+      setCookie({ name: 'logged_in', value: 'yes', 'max-age': 900 });
+      setCookie({
+        name: 'projectUrl',
+        value: data.url,
+        'max-age': 900,
+      });
+
+      store.update(() => ({
+        projectUrl: data.url,
+        isAuthenticated: true,
+      }));
+    } catch (e) {
+      console.error(e);
     }
   }
 
-  function authFromCookie() {
-    const id = getCookie('id');
-    const password = getCookie('password');
+  function tryGetProjectUrl() {
+    const projectUrl = getCookie('projectUrl');
 
-    return { id, password };
+    if (projectUrl) {
+      store.update(() => ({ projectUrl, isAuthenticated: true }));
+      setCookie({ name: 'logged_in', value: 'yes', 'max-age': 900 });
+    }
   }
 
-  function fetchAuth() {
-    const { id, password } = authFromCookie();
+  function handleSubmit(event: Event) {
+    event.preventDefault();
 
-    if (id && password) {
-      auth.update((auth) => ({ ...auth, id, password }));
-    } else {
-      authFromNetwork();
-    }
+    const [id, password]: [
+      HTMLInputElement,
+      HTMLInputElement
+    ] = (document.getElementById('authForm') as any)?.elements;
+
+    login({ id: id.value, password: password.value });
   }
 
   onMount(() => {
     if (isAlreadyAuthenticated()) {
-      auth.update((auth) => ({ ...auth, isAuthenticated: true }));
-      setCookie({ name: 'logged_in', value: 'yes', 'max-age': 900 });
-    } else {
-      fetchAuth();
+      tryGetProjectUrl();
     }
   });
-
-  function handleSubmit<T>(
-    event: Event & {
-      currentTarget: EventTarget & T;
-    }
-  ) {
-    event.preventDefault();
-
-    const formData = new FormData(
-      document.getElementById('authForm') as HTMLFormElement
-    );
-
-    if (
-      formData.get('id') === credentials.id &&
-      formData.get('password') === credentials.password
-    ) {
-      console.log('auth success');
-      setCookie({ name: 'logged_in', value: 'yes', 'max-age': 900 });
-      auth.update((auth) => ({ ...auth, isAuthenticated: true }));
-    } else {
-      console.log('auth failed');
-      invalidId = formData.get('id') !== credentials.id;
-      invalidPassword = formData.get('password') !== credentials.password;
-    }
-  }
 </script>
 
 <form class="form" on:submit={handleSubmit} id="authForm">
@@ -91,7 +75,7 @@
       <input
         class={`input bodyMLight ${invalidId ? 'invalid' : ''}`}
         name="id"
-        type="id"
+        type="text"
       />
     </label>
     <label class="label bodyMMedium">

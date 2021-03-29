@@ -51,8 +51,6 @@ export default {
         dev: !production,
       },
     }),
-    typescript({ sourceMap: !production, inlineSourceMap: false }),
-    commonjs(),
     css({ output: 'bundle.css' }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(
@@ -78,6 +76,8 @@ export default {
       browser: true,
       dedupe: ['svelte'],
     }),
+    commonjs(),
+    typescript({ sourceMap: !production, inlineSourceMap: false }),
     json(),
 
     !production && serve(),

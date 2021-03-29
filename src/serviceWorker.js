@@ -25,7 +25,7 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => url.pathname.startsWith('/assets/project.json'),
+  ({ url }) => url.pathname.endsWith('.json'),
   new NetworkFirst({
     cacheName: 'network-first',
     plugins: [
@@ -50,6 +50,7 @@ registerRoute(
 );
 
 addEventListener('message', (messageEvent) => {
+  console.log('[aziufboeaif');
   if (messageEvent.data === 'skipWaiting') {
     console.log('[service-worker] skip waiting');
     skipWaiting();

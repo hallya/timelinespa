@@ -1,8 +1,7 @@
 import { writable } from 'svelte/store';
-import type { Auth } from './types';
+import type { Store } from './types';
 
-export const auth = writable<Auth>({
+export const store = writable<Store>({
   isAuthenticated: false,
-  id: null,
-  password: null,
+  projectUrl: null,
 });
