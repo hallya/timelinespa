@@ -1,10 +1,16 @@
 <script lang="ts">
   import axios from 'axios';
+  import { onMount } from 'svelte';
   import { store } from './store';
   import Header from './components/Header.svelte';
   import Timeline from './components/Timeline.svelte';
   import type { Project } from './types/project';
   import Authentication from './components/Authentication.svelte';
+  import { registerSW } from './registerServiceWorker';
+
+  onMount(() => {
+    registerSW();
+  });
 
   let project: Project | null = null;
   let isAuthenticated: boolean = false;

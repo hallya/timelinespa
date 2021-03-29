@@ -12,8 +12,7 @@ cleanupOutdatedCaches();
 precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(
-  ({ url }) =>
-    url.pathname.startsWith('/build') || url.pathname === '/assets/auth.json',
+  ({ url }) => url.pathname.startsWith('/build'),
   new StaleWhileRevalidate({
     cacheName: 'stale-while-revalidate',
     plugins: [
@@ -50,10 +49,8 @@ registerRoute(
 );
 
 addEventListener('message', (messageEvent) => {
-  console.log('[aziufboeaif');
-  if (messageEvent.data === 'skipWaiting') {
+  if (messageEvent.data && messageEvent.data.type === 'SKIP_WAITING') {
     console.log('[service-worker] skip waiting');
     skipWaiting();
-    clientsClaim();
   }
 });
