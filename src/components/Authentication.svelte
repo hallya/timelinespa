@@ -1,12 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { AxiosResponse, default as axios } from 'axios';
+  import { default as axios } from 'axios';
   import { store } from '../store';
   import type { Credentials } from '../types/credentials';
   import { getCookie, setCookie } from '../utils/cookies';
 
-  let invalidId = false;
-  let invalidPassword = false;
+  let invalidCredentials = false;
 
   function isAlreadyAuthenticated(): boolean {
     const isLogged = getCookie('logged_in');
@@ -36,8 +35,10 @@
         projectUrl: data.url,
         isAuthenticated: true,
       }));
+      invalidCredentials = false;
     } catch (e) {
       console.error(e);
+      invalidCredentials = true;
     }
   }
 
@@ -69,23 +70,18 @@
 </script>
 
 <form class="form" on:submit={handleSubmit} id="authForm">
-  <div>
+  <div class="fieldset">
     <label class="label bodyMMedium">
       Identifiant
-      <input
-        class={`input bodyMLight ${invalidId ? 'invalid' : ''}`}
-        name="id"
-        type="text"
-      />
+      <input class={`input bodyMLight`} name="id" type="text" />
     </label>
     <label class="label bodyMMedium">
       Mot de passe
-      <input
-        class={`input bodyMLight ${invalidPassword ? 'invalid' : ''}`}
-        name="password"
-        type="password"
-      />
+      <input class={`input bodyMLight`} name="password" type="password" />
     </label>
+    {#if invalidCredentials}
+      <p class="invalid bodySLight">Identifiants incorrects</p>
+    {/if}
   </div>
   <button
     class="submitButton bodyMMedium"
@@ -107,6 +103,10 @@
     row-gap: 20px;
   }
 
+  .fieldset {
+    position: relative;
+  }
+
   .label {
     display: grid;
     row-gap: 8px;
@@ -123,7 +123,10 @@
   }
 
   .invalid {
-    box-shadow: 0 0 2px 0px red;
+    color: red;
+    margin: 0 auto;
+    position: absolute;
+    bottom: -15px;
   }
 
   .submitButton {
