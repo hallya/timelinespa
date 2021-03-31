@@ -15,8 +15,9 @@ export function generateTimelineMarkups(date: Date) {
   
   const monthIndex = date.getMonth();
   const weekIndex = Math.floor(Number(projectStartDay) / averageDayCountPerWeek);
+
   return {
-    weekIndex,
+    weekIndex: weekIndex === 4 ? 3 : weekIndex,
     monthIndex,
     year,
   };
