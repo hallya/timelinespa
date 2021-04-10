@@ -1,5 +1,7 @@
-<script>
-  export let projectStatus;
+<script lang="ts">
+  import type { Project } from '../types/project';
+
+  export let projectStatus: Project['status'];
 </script>
 
 <header>
