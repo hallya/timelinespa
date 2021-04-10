@@ -1,5 +1,4 @@
 <script lang="ts">
-  // @ts-check
   import { onMount } from 'svelte';
   import type { ProjectEvent, LifeCycleEvent, Markup } from '../types';
   import { maxMonthIndex, months } from '../utils/constants';
@@ -84,7 +83,7 @@
         class="yearContainer"
       >
         <ul class="months" id={`year-${year}-months`}>
-          {#each monthsToDisplay[yearIndex] as month, monthIndex}
+          {#each monthsToDisplay[yearIndex] as month}
             <li class="monthContainer">
               <div class="monthIndicator" />
               <div class="weeksContainer">
