@@ -1,15 +1,15 @@
-import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
-import autoPreprocess from 'svelte-preprocess';
+import replace from '@rollup/plugin-replace';
+import esbuild from 'rollup-plugin-esbuild';
+import svelte from 'rollup-plugin-svelte';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import sveltePreprocess from 'svelte-preprocess';
 import css from 'rollup-plugin-css-only';
-import replace from '@rollup/plugin-replace';
 import { injectManifest } from 'rollup-plugin-workbox';
+import autoPreprocess from 'svelte-preprocess';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -46,12 +46,10 @@ export default {
   plugins: [
     svelte({
       preprocess: autoPreprocess(),
-      preprocess: sveltePreprocess(),
       compilerOptions: {
         dev: !production,
       },
     }),
-    css({ output: 'bundle.css' }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(
         process.env.NODE_ENV || 'production'
@@ -76,17 +74,28 @@ export default {
       browser: true,
       dedupe: ['svelte'],
     }),
-    commonjs({ sourceMap: !production }),
     typescript({
       sourceMap: !production,
       inlineSourceMap: !production,
       inlineSources: true,
     }),
+    commonjs({ sourceMap: !production }),
+    esbuild({
+      target: 'es2017',
+      loaders: {
+        '.js': 'js',
+        '.ts': 'ts',
+        '.svelte': 'js',
+      },
+      sourceMap: !production,
+      minify: production,
+    }),
+    css({ output: 'bundle.css' }),
     json(),
 
     !production && serve(),
 
-    !production && livereload('public'),
+    !production && livereload({ watch: 'src/**/*' }),
     production && terser({ compress: true }),
   ],
   output: {
