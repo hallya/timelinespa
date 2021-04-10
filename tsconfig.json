@@ -3,12 +3,13 @@
   "compilerOptions": {
     "allowJs": false,
     "lib": ["es2020", "webworker", "dom"],
-    "module": "ESNext",
+    "module": "esnext",
     "moduleResolution": "node",
+    "noImplicitAny": true,
     "resolveJsonModule": true,
     "strict": true,
     "target": "esnext"
   },
-  "include": ["src/**/*", "public/serviceWorker.ts"],
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+  "include": ["src"],
+  "exclude": ["node_modules/*", "public/*"]
 }
