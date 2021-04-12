@@ -4,6 +4,7 @@
   import { store } from '../store';
   import type { Credentials } from '../types/credentials';
   import { getCookie, setCookie } from '../utils/cookies';
+  import { COOKIE_DURATION } from '../utils/constants';
 
   let invalidCredentials = false;
 
@@ -28,7 +29,7 @@
       setCookie({
         name: 'projectUrl',
         value: data.url,
-        'max-age': 900,
+        'max-age': COOKIE_DURATION,
       });
 
       store.update(() => ({
@@ -47,7 +48,11 @@
 
     if (projectUrl) {
       store.update(() => ({ projectUrl, isAuthenticated: true }));
-      setCookie({ name: 'logged_in', value: 'yes', 'max-age': 900 });
+      setCookie({
+        name: 'logged_in',
+        value: 'yes',
+        'max-age': COOKIE_DURATION,
+      });
     }
   }
 
