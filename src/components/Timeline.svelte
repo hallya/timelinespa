@@ -176,10 +176,6 @@
     width: 100vw;
   }
 
-  .scrollXContainer::-webkit-scrollbar {
-    height: 0;
-  }
-
   .yearContainer {
     align-items: flex-end;
     display: flex;
