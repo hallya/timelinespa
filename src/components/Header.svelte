@@ -23,13 +23,14 @@
 
 <style>
   header {
-    position: fixed;
-    left: 0;
-    right: 0;
     align-items: flex-start;
     display: flex;
     justify-content: space-between;
+    left: 0;
     padding: 20px;
+    position: fixed;
+    right: 0;
+    z-index: 1;
   }
   section {
     max-width: 65%;

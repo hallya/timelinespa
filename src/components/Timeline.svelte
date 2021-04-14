@@ -231,6 +231,7 @@
     bottom: -175px;
     height: 101vh;
     width: 2px;
+    z-index: -1;
   }
 
   .lifeCycleMarker {
