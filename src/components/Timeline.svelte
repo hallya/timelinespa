@@ -74,7 +74,6 @@
 </script>
 
 <div>
-  <div class="horizontalLine" />
   <div class="scrollXContainer">
     {#each yearsToDisplay as year, yearIndex}
       <section
@@ -155,15 +154,6 @@
 </div>
 
 <style>
-  .horizontalLine {
-    background-color: black;
-    bottom: 180px;
-    height: 1px;
-    position: fixed;
-    left: 0;
-    right: 0;
-  }
-
   .scrollXContainer {
     bottom: 0;
     display: grid;
@@ -199,6 +189,7 @@
 
   .months {
     align-items: flex-end;
+    border-top: 1px solid black;
     display: grid;
     grid-auto-flow: column;
     bottom: 102.5px;
